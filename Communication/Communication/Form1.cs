@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Communication.Utility;
+using Communication.Send;
 
 namespace Communication
 {
@@ -16,5 +18,23 @@ namespace Communication
         {
             InitializeComponent();
         }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            string send = textBoxSend.Text;
+            Helper.followTextBoxLog(richTextBoxLogs, send);
+            //Helper.followTextBoxLog(richTextBoxLogs, Sender.test());
+          
+
+        }
+
+        private void buttonReceive_Click(object sender, EventArgs e)
+        {
+            string rec = "Will implement connection and get msg from MQ, not just simulating pressed, data -> " + textBoxSend.Text;
+            Helper.followTextBoxLog(richTextBoxRecieve, rec);
+            Helper.followTextBoxLog(richTextBoxLogs, rec);
+        }
+
+
     }
 }
