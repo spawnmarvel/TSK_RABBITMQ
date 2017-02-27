@@ -12,6 +12,10 @@ namespace Communication.Send
 {
     class Producer
     {
+        // Persistence property on three levels
+        //Queue: model.QueueDeclare("oil_2", true, false, false, null);
+        //Exchange:model.ExchangeDeclare("to_oil_2", ExchangeType.Topic, true);
+        //Msg:basicProp.Persistent = true;
         private ConnectionFactory conFac { get; set; }
         private IModel model { get; set; }
         private IConnection con { get; set; }
@@ -70,13 +74,14 @@ namespace Communication.Send
         {
             model = con.CreateModel();
             //create queue:name, durable, exclusive, autodelte, arguments
-            //Durability: durable(meaning messages can be recovered)
-            model.QueueDeclare("oil_2", true, false, false, null);
+            //Durability: durable(meaning the queue can be recovered)
+            model.QueueDeclare("oil_3", true, false, false, null);
             //create exchange
             //Topic exchanges route messages to one or many queues based on matching between a message routing key and the pattern that was used to bind a queue to an exchange. 
-            model.ExchangeDeclare("to_oil_2", ExchangeType.Topic);
+            //add true to declare durable exchange
+            model.ExchangeDeclare("to_oil_3", ExchangeType.Topic, true);
             //bind the them with routing key
-            model.QueueBind("oil_2", "to_oil_2", "values");
+            model.QueueBind("oil_3", "to_oil_3", "values");
         }
 
         public string publishMsg(string messages)
@@ -85,10 +90,11 @@ namespace Communication.Send
             try
             {
                 IBasicProperties basicProp = model.CreateBasicProperties();
-                basicProp.Persistent = false;
+                //set persistent true, meaning the msg can be recoverd
+                basicProp.Persistent = true;
                 //msg
                 byte[] load = Encoding.UTF8.GetBytes(messages);
-                PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_2", "values");
+                PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_3", "values");
                 model.BasicPublish(adr, basicProp, load);
                 info = messages;
             }
