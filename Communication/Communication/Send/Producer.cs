@@ -24,6 +24,7 @@ namespace Communication.Send
 
         public Producer()
         {
+            //connection status in only true if try getRabbitMqConnction has no exceptions
             connectionStatus = false;
         }
 
@@ -54,10 +55,14 @@ namespace Communication.Send
                 info = " " + msg;
                 connectionStatus = false;
             }
+            //added this if rabbit dll is missing
+            catch(FileNotFoundException msg)
+            {
+                info = "" + msg;
+            }
             catch (Exception msg)
             {
                 info = "" + msg;
-                connectionStatus = false;
             }
 
 
