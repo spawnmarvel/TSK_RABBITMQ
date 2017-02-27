@@ -12,7 +12,7 @@ namespace Communication.Send
 {
     class Producer
     {
-        // Persistence property on three levels
+        //Persistence property on three levels
         //Queue: model.QueueDeclare("oil_2", true, false, false, null);
         //Exchange:model.ExchangeDeclare("to_oil_2", ExchangeType.Topic, true);
         //Msg:basicProp.Persistent = true;
