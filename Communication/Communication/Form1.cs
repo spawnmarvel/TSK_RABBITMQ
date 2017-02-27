@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Communication.Utility;
 using Communication.Send;
+using Communication.Recieve;
 using RabbitMQ.Client;
+
 
 namespace Communication
 {
@@ -48,7 +50,8 @@ namespace Communication
                         }
                         else
                         {
-                            string sent = producer.publishMsg(msg);
+                            IModel mod = producer.getIModel();
+                            string sent = producer.publishMsg(mod, msg);
                             Helper.followTextBoxLog(richTextBoxLogs, sent);
                             textBoxSend.Text = "";
                             state = start;
@@ -79,9 +82,15 @@ namespace Communication
 
         private void buttonReceive_Click(object sender, EventArgs e)
         {
-            string rec = "Will implement connection and get msg from MQ, not just simulating pressed, data -> " + textBoxSend.Text;
+            string rec = "Start\n";
             Helper.followTextBoxLog(richTextBoxRecieve, rec);
             Helper.followTextBoxLog(richTextBoxLogs, rec);
+            Consumer cons = new Consumer();
+            IModel mod = cons.getIModel();
+            string queue = cons.getQueue();
+            Helper.followTextBoxLog(richTextBoxLogs, "Get from " + queue);
+            string fromConsumer = cons.recieveMsg(mod, queue);
+            Helper.followTextBoxLog(richTextBoxRecieve, fromConsumer);
         }
 
 
