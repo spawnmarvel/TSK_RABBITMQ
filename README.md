@@ -3,8 +3,8 @@
 
 Output:
 Log:27/02/2017 21:23:15: Starting
-Log:27/02/2017 21:23:16: Connection is True
-Log:27/02/2017 21:23:16: State is work 2
+	Log:27/02/2017 21:23:16: Connection is True
+	Log:27/02/2017 21:23:16: State is work 2
 Log:27/02/2017 21:23:16: Enter a new messages, 5 chars it to small
 Log:27/02/2017 21:23:22: Starting
 Log:27/02/2017 21:23:22: Connection is True
