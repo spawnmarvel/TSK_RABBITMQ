@@ -30,7 +30,7 @@ namespace Communication
             int state = start;
             if (state == start)
             {
-
+                Helper.followTextBoxLog(richTextBoxLogs, "Starting");
                 bool status = producer.getRabbitMqConnection();
                 Helper.followTextBoxLog(richTextBoxLogs, "Connection is " + status);
                 if (status == true)
@@ -44,12 +44,15 @@ namespace Communication
                         if (msg.Length < 5)
                         {
                             Helper.followTextBoxLog(richTextBoxLogs, "Enter a new messages, 5 chars it to small");
+                            state = work;
                         }
                         else
                         {
                             string sent = producer.publishMsg(msg);
                             Helper.followTextBoxLog(richTextBoxLogs, sent);
                             textBoxSend.Text = "";
+                            state = start;
+                            
                         }
                     }
                 }
