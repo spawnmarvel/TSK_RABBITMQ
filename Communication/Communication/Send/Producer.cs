@@ -32,6 +32,7 @@ namespace Communication.Send
                 PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_3", "values");
                 model.BasicPublish(adr, basicProp, load);
                 info = messages;
+                model.Dispose();
             }
             catch (NullReferenceException msg)
             {

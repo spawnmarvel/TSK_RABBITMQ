@@ -20,7 +20,7 @@ namespace Communication.Recieve
 
         public string recieveMsg(IModel mod, string queue)
         {
-            string msg = "";
+            string msg = "not get yet";
             var reciever = new EventingBasicConsumer(mod);
             reciever.Received += (model, ea) =>
             {
@@ -29,6 +29,7 @@ namespace Communication.Recieve
                 msg = "Recieved " + message;
             };
             mod.BasicConsume(queue, noAck: true, consumer: reciever);
+            mod.Dispose();
 
 
             return msg;
