@@ -106,25 +106,59 @@ namespace Communication.Recieve
 
         public string recieveMsg()
         {
-            getRabbitMqConnection();
-            setUpInitialTopicQueue();
-            string info = "try get msg: ";
-            var cons = new EventingBasicConsumer(model);
-            uint x = model.MessageCount(queue_);
-            info += "Queue size " + x;
-            cons.Received += (IModel, ea) =>
-             {
-                 var body = ea.Body;
-                 var msg = Encoding.UTF8.GetString(body);
-                 info += msg;
-             };
-            model.BasicConsume(queue: queue_, noAck: true, consumer: cons);
-            model.Dispose();
-            con.Close();
-          
-            return info;
+            string res = "start, ";
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: queue_,
+                                     durable: true,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
 
+                var consumer = new EventingBasicConsumer(channel);
+                uint x = model.MessageCount(queue_);
+                res += "Count " + x + ", ";
+                consumer.Received += (model, ea) =>
+                {
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    res += message;
+                    channel.BasicAck(ea.DeliveryTag, false);
+                };
+                //false here then it is no ack, if true the it is autoack
+                channel.BasicConsume(queue: queue_,
+                                     noAck: true,
+                                     consumer: consumer);
+
+
+            }
+            return res;
         }
+
+        //public string recieveMsg()
+        //{
+        //    getRabbitMqConnection();
+        //    setUpInitialTopicQueue();
+        //    string info = "try get msg: ";
+        //    var cons = new EventingBasicConsumer(model);
+        //    uint x = model.MessageCount(queue_);
+
+        //    info += "Queue size " + x;
+        //    cons.Received += (IModel, ea) =>
+        //     {
+        //         var body = ea.Body;
+        //         var msg = Encoding.UTF8.GetString(body);
+        //         info += msg;
+        //     };
+        //    model.BasicConsume(queue: queue_, noAck: true, consumer: cons);
+        //    model.Dispose();
+        //    con.Close();
+
+        //    return info;
+
+        //}
 
     }
 }
