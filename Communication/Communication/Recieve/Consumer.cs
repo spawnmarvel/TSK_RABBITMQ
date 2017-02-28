@@ -14,7 +14,7 @@ namespace Communication.Recieve
 {
     class Consumer// : AmqpMessagingService
     {
-
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(Consumer));
         //Persistence property on three levels
         //Queue: model.QueueDeclare("oil_2", true, false, false, null);
         //Exchange:model.ExchangeDeclare("to_oil_2", ExchangeType.Topic, true);
@@ -23,7 +23,7 @@ namespace Communication.Recieve
         private IModel model { get; set; }
         private IConnection con { get; set; }
         private bool connectionStatus;
-        private string queue_ = "oil_3";
+        private string queue_ = "oil_5";
 
         public Consumer()
         {
@@ -44,7 +44,7 @@ namespace Communication.Recieve
         }
         public bool getRabbitMqConnection()
         {
-
+            logger.Info("get rabbit mq connection");
             string info = "";
             try
             {
@@ -62,6 +62,7 @@ namespace Communication.Recieve
                 setUpInitialTopicQueue();
                 connectionStatus = true;
                 info = "Success";
+                logger.Info("Rabbitmq connection = " + info);
 
             }
 
@@ -69,15 +70,18 @@ namespace Communication.Recieve
             {
                 info = " " + msg;
                 connectionStatus = false;
+                logger.Error(info);
             }
             //added this if rabbit dll is missing
             catch (FileNotFoundException msg)
             {
                 info = "" + msg;
+                logger.Error(info);
             }
             catch (Exception msg)
             {
                 info = "" + msg;
+                logger.Error(info);
             }
 
 
@@ -92,6 +96,7 @@ namespace Communication.Recieve
         }
         private void setUpInitialTopicQueue()
         {
+            logger.Info("set up initial queue");
             model = con.CreateModel();
             //create queue:name, durable, exclusive, autodelte, arguments
             //Durability: durable(meaning the queue can be recovered)
@@ -99,46 +104,62 @@ namespace Communication.Recieve
             //create exchange
             //Topic exchanges route messages to one or many queues based on matching between a message routing key and the pattern that was used to bind a queue to an exchange. 
             //add true to declare durable exchange
-            model.ExchangeDeclare("to_oil_3", ExchangeType.Topic, true);
+            model.ExchangeDeclare("to_oil_5", ExchangeType.Topic, true);
             //bind the them with routing key
-            model.QueueBind(queue_, "to_oil_3", "values");
+            model.QueueBind(queue_, "to_oil_5", "values");
+
         }
 
         public string recieveMsg()
         {
-            string res = "start, ";
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            int start = 1;
+            int workMany = 2;
+            int work = 3;
+            int done = 4;
+            getRabbitMqConnection();
+            setUpInitialTopicQueue();
+            string res = "";
+            logger.Info("Recieved");
+            model.BasicQos(0, 1, false); //basic quality of service
+            QueueingBasicConsumer consumer = new QueueingBasicConsumer(model);
+            model.BasicConsume(queue_, false, consumer);
+            uint x = model.MessageCount(queue_);
+            int tmp = (int)x;
+            logger.Info("Count " + x);
+            if (tmp > 0)
             {
-                channel.QueueDeclare(queue: queue_,
-                                     durable: true,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
-
-                var consumer = new EventingBasicConsumer(channel);
-                uint x = model.MessageCount(queue_);
-                res += "Count " + x + ", ";
-                consumer.Received += (model, ea) =>
+                for (int y = 0; y < x; y++)
                 {
-                    var body = ea.Body;
-                    var message = Encoding.UTF8.GetString(body);
-                    res += message;
-                    channel.BasicAck(ea.DeliveryTag, false);
-                };
-                //false here then it is no ack, if true the it is autoack
-                channel.BasicConsume(queue: queue_,
-                                     noAck: true,
-                                     consumer: consumer);
 
+                    logger.Info("In loop, x is " + x);
+                    BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
+                    String message = Encoding.UTF8.GetString(deliveryArguments.Body);
+                    logger.Info("Msg = " + message);
+                    res += message;
+                    model.BasicAck(deliveryArguments.DeliveryTag, false);
+                    // return message;
+                }
+            }
+            else//x is 0
+            {
+                logger.Info("No loop, x is " + x);
+                BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
+                String message = Encoding.UTF8.GetString(deliveryArguments.Body);
+                logger.Info("Msg = " + message);
+                res += message;
+                model.BasicAck(deliveryArguments.DeliveryTag, false);
+                tmp = -1;
 
             }
+            //clean up
+            model.Dispose();
+            con.Close();
             return res;
         }
 
         //public string recieveMsg()
         //{
+        //    logger.Info("Recieve");
         //    getRabbitMqConnection();
         //    setUpInitialTopicQueue();
         //    string info = "try get msg: ";
@@ -146,11 +167,13 @@ namespace Communication.Recieve
         //    uint x = model.MessageCount(queue_);
 
         //    info += "Queue size " + x;
+        //    logger.Info(info);
         //    cons.Received += (IModel, ea) =>
         //     {
         //         var body = ea.Body;
         //         var msg = Encoding.UTF8.GetString(body);
         //         info += msg;
+        //         logger.Info("Recieved = " + msg);
         //     };
         //    model.BasicConsume(queue: queue_, noAck: true, consumer: cons);
         //    model.Dispose();

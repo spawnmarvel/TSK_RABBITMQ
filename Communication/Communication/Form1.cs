@@ -16,7 +16,10 @@ using RabbitMQ.Client;
 namespace Communication
 {
     public partial class mainForm : Form
+
     {
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(mainForm));
+
         public mainForm()
         {
             InitializeComponent();
@@ -24,6 +27,7 @@ namespace Communication
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
+            logger.Info("Btn send");
             int start = 1;
             int work = 2;
             int reTry = 3;

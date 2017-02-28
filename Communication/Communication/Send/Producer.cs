@@ -13,6 +13,7 @@ namespace Communication.Send
 {
     class Producer // : AmqpMessagingService
     {
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(Producer));
 
         //Persistence property on three levels
         //Queue: model.QueueDeclare("oil_2", true, false, false, null);
@@ -22,7 +23,7 @@ namespace Communication.Send
         private IModel model { get; set; }
         private IConnection con { get; set; }
         private bool connectionStatus;
-        private string queue = "oil_3";
+        private string queue = "oil_5";
 
         public Producer()
         {
@@ -43,7 +44,7 @@ namespace Communication.Send
         }
         public bool getRabbitMqConnection()
         {
-
+            logger.Info("Get rabbitmq connection");
             string info = "";
             try
             {
@@ -61,6 +62,7 @@ namespace Communication.Send
                 setUpInitialTopicQueue();
                 connectionStatus = true;
                 info = "Success";
+                logger.Info("rabbitmq connection = " + info);
 
             }
 
@@ -68,15 +70,18 @@ namespace Communication.Send
             {
                 info = " " + msg;
                 connectionStatus = false;
+                logger.Error(info);
             }
             //added this if rabbit dll is missing
             catch (FileNotFoundException msg)
             {
                 info = "" + msg;
+                logger.Info(info);
             }
             catch (Exception msg)
             {
                 info = "" + msg;
+                logger.Info(info);
             }
 
 
@@ -87,10 +92,12 @@ namespace Communication.Send
         {
             conFac.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
             connectionStatus = false;
+            logger.Info("In reconnect..");
 
         }
         private void setUpInitialTopicQueue()
         {
+            logger.Info("Set up initial topic queue");
             model = con.CreateModel();
             //create queue:name, durable, exclusive, autodelte, arguments
             //Durability: durable(meaning the queue can be recovered)
@@ -98,13 +105,14 @@ namespace Communication.Send
             //create exchange
             //Topic exchanges route messages to one or many queues based on matching between a message routing key and the pattern that was used to bind a queue to an exchange. 
             //add true to declare durable exchange
-            model.ExchangeDeclare("to_oil_3", ExchangeType.Topic, true);
+            model.ExchangeDeclare("to_oil_5", ExchangeType.Topic, true);
             //bind the them with routing key
-            model.QueueBind(queue, "to_oil_3", "values");
+            model.QueueBind(queue, "to_oil_5", "values");
         }
 
         public string publishMsg(string messages)
         {
+            logger.Info("Publish");
             string info = "";
             try
             {
@@ -113,14 +121,16 @@ namespace Communication.Send
                 basicProp.Persistent = true;
                 //msg
                 byte[] load = Encoding.UTF8.GetBytes(messages);
-                PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_3", "values");
+                PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_5", "values");
                 model.BasicPublish(adr, basicProp, load);
                 info = messages;
+                logger.Info("Message = " + info);
                 
             }
             catch (NullReferenceException msg)
             {
                 info = "" + msg;
+                logger.Error(info);
             }
             model.Dispose();
             con.Close();
