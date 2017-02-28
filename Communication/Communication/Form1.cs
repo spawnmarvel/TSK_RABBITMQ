@@ -27,7 +27,6 @@ namespace Communication
             int start = 1;
             int work = 2;
             int reTry = 3;
-           
             Producer producer = new Producer();
             int state = start;
             if (state == start)
@@ -51,7 +50,7 @@ namespace Communication
                         else
                         {
                             IModel mod = producer.getIModel();
-                            string sent = producer.publishMsg(mod, msg);
+                            string sent = producer.publishMsg(mod,producer.getIconnection(),  msg);
                             Helper.followTextBoxLog(richTextBoxLogs, sent);
                             textBoxSend.Text = "";
                             state = start;
@@ -91,7 +90,7 @@ namespace Communication
             IModel mod = cons.getIModel();
             string queue = cons.getQueue();
             Helper.followTextBoxLog(richTextBoxLogs, "Get from " + queue);
-            string fromConsumer = cons.recieveMsg(mod, queue);
+            string fromConsumer = cons.recieveMsg(mod,cons.getIconnection(),  queue);
             Helper.followTextBoxLog(richTextBoxRecieve, fromConsumer);
         }
 

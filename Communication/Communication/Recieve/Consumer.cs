@@ -18,21 +18,30 @@ namespace Communication.Recieve
 
         }
 
-        public string recieveMsg(IModel mod, string queue)
+        public string recieveMsg(IModel mod,IConnection con,  string queue)
         {
-            string msg = "not get yet";
-            var reciever = new EventingBasicConsumer(mod);
-            reciever.Received += (model, ea) =>
+            string info = "Try to recieve: \n";
+            try
             {
-                var body = ea.Body;
-                var message = Encoding.UTF8.GetString(body);
-                msg = "Recieved " + message;
-            };
-            mod.BasicConsume(queue, noAck: true, consumer: reciever);
+                
+                var reciever = new EventingBasicConsumer(mod);
+                reciever.Received += (model, ea) =>
+                {
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    info += "Recieved " + message + "\n";
+                };
+                mod.BasicConsume(queue, noAck: true, consumer: reciever);
+                
+            }
+            catch(NullReferenceException msg)
+            {
+                info = "" + msg;
+            }
             mod.Dispose();
+            con.Close();
 
-
-            return msg;
+            return info;
         }
     }
 }

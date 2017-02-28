@@ -19,7 +19,7 @@ namespace Communication.Send
             
         }
 
-        public string publishMsg(IModel model,  string messages)
+        public string publishMsg(IModel model,IConnection con,  string messages)
         {
             string info = "";
             try
@@ -32,12 +32,14 @@ namespace Communication.Send
                 PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_3", "values");
                 model.BasicPublish(adr, basicProp, load);
                 info = messages;
-                model.Dispose();
+                
             }
             catch (NullReferenceException msg)
             {
                 info = "" + msg;
             }
+            model.Dispose();
+            con.Close();
 
             return "Publishes msg " + info;
         }
