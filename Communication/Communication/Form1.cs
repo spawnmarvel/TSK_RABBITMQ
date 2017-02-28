@@ -50,7 +50,7 @@ namespace Communication
                         else
                         {
                             IModel mod = producer.getIModel();
-                            string sent = producer.publishMsg(mod,producer.getIconnection(),  msg);
+                            string sent = producer.publishMsg(msg);
                             Helper.followTextBoxLog(richTextBoxLogs, sent);
                             textBoxSend.Text = "";
                             state = start;
@@ -81,16 +81,16 @@ namespace Communication
 
         private void buttonReceive_Click(object sender, EventArgs e)
         {
-            string rec = "Start\n";
+            string rec = "Start";
             Helper.followTextBoxLog(richTextBoxRecieve, rec);
             Helper.followTextBoxLog(richTextBoxLogs, rec);
             Consumer cons = new Consumer();
-            bool status = cons.getRabbitMqConnection();
-            Helper.followTextBoxLog(richTextBoxLogs, "Rabbit con " + status);
-            IModel mod = cons.getIModel();
-            string queue = cons.getQueue();
-            Helper.followTextBoxLog(richTextBoxLogs, "Get from " + queue);
-            string fromConsumer = cons.recieveMsg(mod,cons.getIconnection(),  queue);
+            //bool status = cons.getRabbitMqConnection();
+            //Helper.followTextBoxLog(richTextBoxLogs, "Rabbit con " + status);
+            //IModel mod = cons.getIModel();
+            //string queue = cons.getQueue();
+           // Helper.followTextBoxLog(richTextBoxLogs, "Get from " + queue);
+            string fromConsumer = cons.recieveMsg();
             Helper.followTextBoxLog(richTextBoxRecieve, fromConsumer);
         }
 
