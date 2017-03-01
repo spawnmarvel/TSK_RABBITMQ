@@ -162,7 +162,7 @@ namespace Communication.Recieve
         }
         public string recieveAllMsg()
         {
-            string res = "\n";
+            string res = "";
 
             try
             {
@@ -184,6 +184,7 @@ namespace Communication.Recieve
                     }
                     // convert the message back from byte[] to a string
                     var message = Encoding.UTF8.GetString(data.Body);
+                    res += "\n";//first line
                     res += "Pkt " + i + " : "+ message.ToString() + "\n";
                     // ack the message, ie. confirm that we have processed it
                     // otherwise it will be requeued a bit later
