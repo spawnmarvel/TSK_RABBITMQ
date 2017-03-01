@@ -114,7 +114,7 @@ namespace Communication.Recieve
         {
            
             getRabbitMqConnection();
-            logger.Info("Recieve-> fix if queue is empty");
+            logger.Info("Recieve-> fix if queue is empty");//
 
             string res = "";
            // model.QueueDeclare(queue_, true, false, false, null);
