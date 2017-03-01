@@ -114,7 +114,7 @@ namespace Communication.Recieve
         {
            
             getRabbitMqConnection();
-            logger.Info("Recieve-> fix if queue is empty");//
+            logger.Info("Recieve->");//
 
             string res = "";
             // do a simple poll of the queue
@@ -134,6 +134,7 @@ namespace Communication.Recieve
                 res = "Queue is empty";
             }
             con.Close();
+            logger.Info("Recieved = " + res);
             logger.Info("Closing connection");
             return res;
         }
