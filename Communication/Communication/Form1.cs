@@ -50,6 +50,8 @@ namespace Communication
                         {
                             Helper.followTextBoxLog(richTextBoxLogs, "Enter a new messages, 5 chars it to small");
                             state = work;
+                            producer.getIconnection().Close();
+                            logger.Info("Closing connection");
                         }
                         else
                         {
