@@ -125,30 +125,42 @@ namespace Communication.Recieve
             model.BasicConsume(queue_, false, consumer);
             uint x = model.MessageCount(queue_);
             int tmp = (int)x;
-            logger.Info("Count " + x);
-            if (tmp > 0)
-            {
-                for (int y = 0; y < x; y++)
+            int count = 0;
+            //while (tmp > 0)
+            //{
+              //  tmp = tmp - 1;
+                //count++;
+                logger.Info("Count " + x);
+                if (tmp > 0)
                 {
+                    for (int y = 0; y < x; y++)
+                    {
 
-                    logger.Info("In loop, x is " + x);
+                        logger.Info("In loop, x is " + x);
+                        BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
+                        String message = Encoding.UTF8.GetString(deliveryArguments.Body);
+                        logger.Info("Msg = " + message);
+                        res += message;
+                        model.BasicAck(deliveryArguments.DeliveryTag, false);
+                        // return message;
+
+                    }
+                }
+                if(tmp == 0)
+               // else//x is 0
+                {
+                //loop here with break
+                    logger.Info("No loop, x is " + x);
                     BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
                     String message = Encoding.UTF8.GetString(deliveryArguments.Body);
                     logger.Info("Msg = " + message);
                     res += message;
                     model.BasicAck(deliveryArguments.DeliveryTag, false);
-                    // return message;
-                }
-            }
-            else//x is 0
-            {
-                logger.Info("No loop, x is " + x);
-                BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
-                String message = Encoding.UTF8.GetString(deliveryArguments.Body);
-                logger.Info("Msg = " + message);
-                res += message;
-                model.BasicAck(deliveryArguments.DeliveryTag, false);
-                tmp = -1;
+                    //break;
+                    //tmp = -1;
+               // }
+
+
 
             }
             //clean up
