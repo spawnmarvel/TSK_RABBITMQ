@@ -134,7 +134,7 @@ namespace Communication.Send
             }
             //model.Dispose();
             con.Close();
-            logger.Info("Clsoing connection");
+            logger.Info("Closing connection");
 
             return "Publishes msg " + info;
         }
