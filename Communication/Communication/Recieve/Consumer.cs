@@ -44,7 +44,7 @@ namespace Communication.Recieve
         }
         public bool getRabbitMqConnection()
         {
-            logger.Info("get rabbit mq connection");
+            logger.Info("Create / get rabbit mq connection");
             string info = "";
             try
             {
@@ -133,6 +133,8 @@ namespace Communication.Recieve
             {
                 res = "Queue is empty";
             }
+            con.Close();
+            logger.Info("Closing connection");
             return res;
         }
 

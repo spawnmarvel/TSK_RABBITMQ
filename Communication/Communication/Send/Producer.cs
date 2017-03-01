@@ -44,7 +44,7 @@ namespace Communication.Send
         }
         public bool getRabbitMqConnection()
         {
-            logger.Info("Get rabbitmq connection");
+            logger.Info("Create / Get rabbitmq connection");
             string info = "";
             try
             {
@@ -134,6 +134,7 @@ namespace Communication.Send
             }
             //model.Dispose();
             con.Close();
+            logger.Info("Clsoing connection");
 
             return "Publishes msg " + info;
         }
