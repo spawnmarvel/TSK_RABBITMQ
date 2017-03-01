@@ -119,7 +119,7 @@ namespace Communication.Send
                 IBasicProperties basicProp = model.CreateBasicProperties();
                 //set persistent true, meaning the msg can be recoverd
                 basicProp.Persistent = true;
-                //msg
+                messages = messages + ";";
                 byte[] load = Encoding.UTF8.GetBytes(messages);
                 PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_5", "values");
                 model.BasicPublish(adr, basicProp, load);

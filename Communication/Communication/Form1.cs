@@ -89,11 +89,6 @@ namespace Communication
             Helper.followTextBoxLog(richTextBoxRecieve, rec);
             Helper.followTextBoxLog(richTextBoxLogs, rec);
             Consumer cons = new Consumer();
-            //bool status = cons.getRabbitMqConnection();
-            //Helper.followTextBoxLog(richTextBoxLogs, "Rabbit con " + status);
-            //IModel mod = cons.getIModel();
-            //string queue = cons.getQueue();
-           // Helper.followTextBoxLog(richTextBoxLogs, "Get from " + queue);
             string fromConsumer = cons.recieveMsg();
             if(fromConsumer.Length < 2)
             {
