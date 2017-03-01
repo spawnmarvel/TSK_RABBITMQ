@@ -112,62 +112,99 @@ namespace Communication.Recieve
 
         public string recieveMsg()
         {
-            int start = 1;
-            int workMany = 2;
-            int work = 3;
-            int done = 4;
+           
             getRabbitMqConnection();
-            setUpInitialTopicQueue();
+            logger.Info("Recieve->");
+
             string res = "";
-            logger.Info("Recieved");
-            model.BasicQos(0, 1, false); //basic quality of service
-            QueueingBasicConsumer consumer = new QueueingBasicConsumer(model);
-            model.BasicConsume(queue_, false, consumer);
-            uint x = model.MessageCount(queue_);
-            int tmp = (int)x;
-            int count = 0;
-            //while (tmp > 0)
-            //{
-              //  tmp = tmp - 1;
-                //count++;
-                logger.Info("Count " + x);
-                if (tmp > 0)
-                {
-                    for (int y = 0; y < x; y++)
-                    {
-
-                        logger.Info("In loop, x is " + x);
-                        BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
-                        String message = Encoding.UTF8.GetString(deliveryArguments.Body);
-                        logger.Info("Msg = " + message);
-                        res += message;
-                        model.BasicAck(deliveryArguments.DeliveryTag, false);
-                        // return message;
-
-                    }
-                }
-                if(tmp == 0)
-               // else//x is 0
-                {
-                //loop here with break
-                    logger.Info("No loop, x is " + x);
-                    BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
-                    String message = Encoding.UTF8.GetString(deliveryArguments.Body);
-                    logger.Info("Msg = " + message);
-                    res += message;
-                    model.BasicAck(deliveryArguments.DeliveryTag, false);
-                    //break;
-                    //tmp = -1;
-               // }
-
-
-
+           // model.QueueDeclare(queue_, true, false, false, null);
+           // var queueName = "queue1";
+            // do a simple poll of the queue
+            var data = model.BasicGet(queue_, false);
+            // the message is null if the queue was empty
+            if (data == null) return res;
+            // convert the message back from byte[] to a string
+            var message = Encoding.UTF8.GetString(data.Body);
+            // ack the message, ie. confirm that we have processed it
+            // otherwise it will be requeued a bit later
+            model.BasicAck(data.DeliveryTag, false);
+            res += message.ToString();
+            logger.Info("Res length " + res.Length);
+            if(res.Length < 1)
+            {
+                res = "Queue is empty";
             }
-            //clean up
-            model.Dispose();
-            con.Close();
             return res;
         }
+
+        //public string recieveMsg()
+        //{
+        //    int start = 1;
+        //    int workMany = 2;
+        //    int work = 3;
+        //    int done = 4;
+        //    getRabbitMqConnection();
+        //    setUpInitialTopicQueue();
+        //    string res = "";
+        //    logger.Info("Recieved");
+        //    model.BasicQos(0, 1, false); //basic quality of service
+        //    QueueingBasicConsumer consumer = new QueueingBasicConsumer(model);
+        //    model.BasicConsume(queue_, false, consumer);
+        //    uint x = model.MessageCount(queue_);
+        //    int tmp = (int)x;
+        //    int count = 0;
+        //    //while (tmp > 0)
+        //    //{
+        //    //  tmp = tmp - 1;
+        //    //count++;
+        //    logger.Info("Count x " + x);
+        //    if (tmp > 0)
+        //    {
+        //        for (int y = 0; y < x; y++)
+        //        {
+
+        //            logger.Info("In loop, x is " + x);
+        //            BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
+        //            String message = Encoding.UTF8.GetString(deliveryArguments.Body);
+        //            logger.Info("Msg = " + message);
+        //            res += message;
+        //            //model.BasicConsume(queue: queue_, noAck: true, consumer: consumer);
+        //            model.BasicAck(deliveryArguments.DeliveryTag, false);
+        //            // return message;
+
+        //        }
+        //    }
+        //    else 
+        //    {
+        //        logger.Info("We hit the else is 0 msg count");
+        //        for (int xx = -1; xx < tmp; x++)
+        //        {
+        //            // else//x is 0
+        //            logger.Info("No loop, x is " + tmp);
+        //            BasicDeliverEventArgs deliveryArguments = consumer.Queue.Dequeue() as BasicDeliverEventArgs;
+        //            String message = Encoding.UTF8.GetString(deliveryArguments.Body);
+        //            logger.Info("Msg = " + message);
+        //            res += message;
+        //            //model.BasicConsume(queue: queue_, noAck: true, consumer: consumer);
+        //            model.BasicAck(deliveryArguments.DeliveryTag, false);
+        //            if (xx == 0)
+        //            {
+        //                logger.Info("xx is " + xx);
+        //                break;
+        //            }
+        //            // break;
+        //            //tmp = -1;
+        //        }
+
+
+
+
+        //    }
+        //    //clean up
+        //    model.Dispose();
+        //    con.Close();
+        //    return res;
+        //}
 
         //public string recieveMsg()
         //{

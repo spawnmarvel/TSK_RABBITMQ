@@ -132,7 +132,7 @@ namespace Communication.Send
                 info = "" + msg;
                 logger.Error(info);
             }
-            model.Dispose();
+            //model.Dispose();
             con.Close();
 
             return "Publishes msg " + info;
