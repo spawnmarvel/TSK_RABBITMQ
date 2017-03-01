@@ -33,13 +33,14 @@
             this.buttonSend = new System.Windows.Forms.Button();
             this.buttonReceive = new System.Windows.Forms.Button();
             this.richTextBoxRecieve = new System.Windows.Forms.RichTextBox();
+            this.buttonRecieveAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBoxLogs
             // 
-            this.richTextBoxLogs.Location = new System.Drawing.Point(12, 433);
+            this.richTextBoxLogs.Location = new System.Drawing.Point(12, 484);
             this.richTextBoxLogs.Name = "richTextBoxLogs";
-            this.richTextBoxLogs.Size = new System.Drawing.Size(1048, 174);
+            this.richTextBoxLogs.Size = new System.Drawing.Size(746, 123);
             this.richTextBoxLogs.TabIndex = 0;
             this.richTextBoxLogs.Text = "";
             // 
@@ -47,12 +48,12 @@
             // 
             this.textBoxSend.Location = new System.Drawing.Point(12, 54);
             this.textBoxSend.Name = "textBoxSend";
-            this.textBoxSend.Size = new System.Drawing.Size(231, 20);
+            this.textBoxSend.Size = new System.Drawing.Size(323, 20);
             this.textBoxSend.TabIndex = 1;
             // 
             // buttonSend
             // 
-            this.buttonSend.Location = new System.Drawing.Point(287, 54);
+            this.buttonSend.Location = new System.Drawing.Point(372, 54);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(75, 23);
             this.buttonSend.TabIndex = 2;
@@ -62,27 +63,38 @@
             // 
             // buttonReceive
             // 
-            this.buttonReceive.Location = new System.Drawing.Point(287, 159);
+            this.buttonReceive.Location = new System.Drawing.Point(12, 136);
             this.buttonReceive.Name = "buttonReceive";
-            this.buttonReceive.Size = new System.Drawing.Size(75, 23);
+            this.buttonReceive.Size = new System.Drawing.Size(126, 23);
             this.buttonReceive.TabIndex = 3;
-            this.buttonReceive.Text = "Receive MQ";
+            this.buttonReceive.Text = "Receive 1 PKT MQ";
             this.buttonReceive.UseVisualStyleBackColor = true;
             this.buttonReceive.Click += new System.EventHandler(this.buttonReceive_Click);
             // 
             // richTextBoxRecieve
             // 
-            this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 161);
+            this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 174);
             this.richTextBoxRecieve.Name = "richTextBoxRecieve";
-            this.richTextBoxRecieve.Size = new System.Drawing.Size(231, 242);
+            this.richTextBoxRecieve.Size = new System.Drawing.Size(350, 247);
             this.richTextBoxRecieve.TabIndex = 4;
             this.richTextBoxRecieve.Text = "";
+            // 
+            // buttonRecieveAll
+            // 
+            this.buttonRecieveAll.Location = new System.Drawing.Point(236, 136);
+            this.buttonRecieveAll.Name = "buttonRecieveAll";
+            this.buttonRecieveAll.Size = new System.Drawing.Size(126, 23);
+            this.buttonRecieveAll.TabIndex = 5;
+            this.buttonRecieveAll.Text = "Recieve All PKT MQ";
+            this.buttonRecieveAll.UseVisualStyleBackColor = true;
+            this.buttonRecieveAll.Click += new System.EventHandler(this.buttonRecieveAll_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 619);
+            this.ClientSize = new System.Drawing.Size(784, 619);
+            this.Controls.Add(this.buttonRecieveAll);
             this.Controls.Add(this.richTextBoxRecieve);
             this.Controls.Add(this.buttonReceive);
             this.Controls.Add(this.buttonSend);
@@ -102,6 +114,7 @@
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.Button buttonReceive;
         private System.Windows.Forms.RichTextBox richTextBoxRecieve;
+        private System.Windows.Forms.Button buttonRecieveAll;
     }
 }
 

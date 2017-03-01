@@ -11,14 +11,14 @@ namespace Communication.Utility
     class Helper
     {
 
-        public static void followTextBoxLog(RichTextBox loggerForm, string log)
+        public static void followTextBoxLog(RichTextBox loggerForm, string action,  string log)
         {
             string da = DateTime.Now.ToString();
             if (loggerForm.Text.Length > 0)
             {
                 loggerForm.AppendText(Environment.NewLine);
             }
-            loggerForm.AppendText("Log:" + da + ": " + log);
+            loggerForm.AppendText("Log:" + da + ": " + action + ": "+ log);
             loggerForm.ScrollToCaret();
         }
     }

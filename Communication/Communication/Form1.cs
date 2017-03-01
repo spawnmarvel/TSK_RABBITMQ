@@ -19,6 +19,8 @@ namespace Communication
 
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(mainForm));
+        private BackgroundWorker bw;
+
 
         public mainForm()
         {
@@ -35,20 +37,20 @@ namespace Communication
             int state = start;
             if (state == start)
             {
-                Helper.followTextBoxLog(richTextBoxLogs, "Starting");
+                Helper.followTextBoxLog(richTextBoxLogs, "Send", "Starting, add open file and send, check for loss, cool");
                 bool status = producer.getRabbitMqConnection();
-                Helper.followTextBoxLog(richTextBoxLogs, "Connection is " + status);
+                Helper.followTextBoxLog(richTextBoxLogs, "Send", "Connection is " + status);
                 if (status == true)
                 {
                     state = work;
 
                     if (state == work)
                     {
-                        Helper.followTextBoxLog(richTextBoxLogs, "State is work " + state);
+                        Helper.followTextBoxLog(richTextBoxLogs, "Send", "State is work " + state);
                         string msg = textBoxSend.Text;
-                        if (msg.Length < 5)
+                        if (msg.Length < 2)
                         {
-                            Helper.followTextBoxLog(richTextBoxLogs, "Enter a new messages, 5 chars it to small");
+                            Helper.followTextBoxLog(richTextBoxLogs, "Send", "Enter a new messages where char is > 2");
                             state = work;
                             producer.getIconnection().Close();
                             logger.Info("Closing connection");
@@ -57,10 +59,10 @@ namespace Communication
                         {
                             IModel mod = producer.getIModel();
                             string sent = producer.publishMsg(msg);
-                            Helper.followTextBoxLog(richTextBoxLogs, sent);
+                            Helper.followTextBoxLog(richTextBoxLogs, "Send", sent);
                             textBoxSend.Text = "";
                             state = start;
-                            
+
                         }
                     }
                 }
@@ -68,12 +70,12 @@ namespace Communication
                 {
                     state = reTry;
                     producer.reConnectToRabbit();
-                    string info = "State is retry " + state;
-                    Helper.followTextBoxLog(richTextBoxLogs, info);
+                    string info = "State is retry " + state + ". Is RabbitRunning? ";
+                    Helper.followTextBoxLog(richTextBoxLogs, "Send", info);
                     if (producer.getRabbitMqConnection() == true)
                     {
                         state = work;
-                        Helper.followTextBoxLog(richTextBoxLogs, "Reconnect is ok, state is work " + state);
+                        Helper.followTextBoxLog(richTextBoxLogs, "Send", "Reconnect is ok, state is work " + state);
                     }
 
                 }
@@ -88,21 +90,25 @@ namespace Communication
         private void buttonReceive_Click(object sender, EventArgs e)
         {
             string rec = "Start";
-            Helper.followTextBoxLog(richTextBoxRecieve, rec);
-            Helper.followTextBoxLog(richTextBoxLogs, rec);
+            Helper.followTextBoxLog(richTextBoxRecieve, "Rec1", rec);
+            Helper.followTextBoxLog(richTextBoxLogs, "Rec1", rec);
             Consumer cons = new Consumer();
             string fromConsumer = cons.recieveMsg();
-            if(fromConsumer.Length < 2)
-            {
-                Helper.followTextBoxLog(richTextBoxRecieve, "Empty queue");
-            }
-            else
-            {
-                Helper.followTextBoxLog(richTextBoxRecieve, fromConsumer);
-            }
-            
+            Helper.followTextBoxLog(richTextBoxRecieve, "Rec1", fromConsumer);
+
+
         }
 
+        private void buttonRecieveAll_Click(object sender, EventArgs e)
+        {
+            string rec = "Start";
+            Helper.followTextBoxLog(richTextBoxRecieve, "RecAll", rec);
+            Helper.followTextBoxLog(richTextBoxLogs, "RecAll", rec);
+            Consumer cons = new Consumer();
+            string fromConsumer = cons.recieveAllMsg();
 
+            Helper.followTextBoxLog(richTextBoxRecieve, "RecAll", fromConsumer);
+
+        }
     }
 }

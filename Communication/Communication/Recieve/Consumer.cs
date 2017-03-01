@@ -112,34 +112,113 @@ namespace Communication.Recieve
 
         public string recieveMsg()
         {
-           
-            getRabbitMqConnection();
-            logger.Info("Recieve->");//
+            string res = "\nPKT 0 : ";
 
-            string res = "";
-            // do a simple poll of the queue
-            var data = model.BasicGet(queue_, false);
-            // the message is null if the queue was empty
-            if (data == null) return res;
-            // convert the message back from byte[] to a string
-            var message = Encoding.UTF8.GetString(data.Body);
-            // ack the message, ie. confirm that we have processed it
-            // otherwise it will be requeued a bit later
-            model.BasicAck(data.DeliveryTag, false);
-           
-            res += message.ToString();
-            logger.Info("Res length " + res.Length);
-            if(res.Length < 1)
+            try
             {
-                res = "Queue is empty";
+                getRabbitMqConnection();
+                logger.Info("Recieve->");//
+
+
+                // do a simple poll of the queue
+                var data = model.BasicGet(queue_, false);
+                // the message is null if the queue was empty
+                if (data == null)
+                {
+                    res = "The queue is empty / recieveMsg";
+                    return res;
+                }
+                // convert the message back from byte[] to a string
+                var message = Encoding.UTF8.GetString(data.Body);
+                // ack the message, ie. confirm that we have processed it
+                // otherwise it will be requeued a bit later
+                model.BasicAck(data.DeliveryTag, false);
+
+                res += message.ToString();
+                logger.Info("Res length " + res.Length);
+                if (res.Length < 2)
+                {
+                    res = "The queue is empty / recieveMsg";
+                }
+                con.Close();
+                logger.Info("Recieved = " + res);
+                logger.Info("Closing connection");
+                return res;
             }
-            con.Close();
-            logger.Info("Recieved = " + res);
-            logger.Info("Closing connection");
+            catch (NotSupportedException msg)
+            {
+
+                logger.Error(msg);
+                logger.Info("If we get this exception (above), just re-add the RabbitMQ.Client.dll. This happens with version / github ");
+                res = msg.ToString();
+
+            }
+            catch(NullReferenceException msg)
+            {
+                logger.Error(msg);
+                res =  msg.ToString() + "\n Is RabbitMQ running?";
+            }
+            return res;
+        }
+        public string recieveAllMsg()
+        {
+            string res = "\n";
+
+            try
+            {
+                getRabbitMqConnection();
+                logger.Info("Recieve All->");//
+
+                uint pktSize = model.MessageCount(queue_);
+                int size = (int)pktSize;
+                logger.Info("Size " + size);
+                for (int i = 0; i < size; i++)
+                {
+                    // do a simple poll of the queue
+                    var data = model.BasicGet(queue_, false);
+                    // the message is null if the queue was empty
+                    if (data == null)
+                    {
+                        res = "(Loop)The queue is empty / recieveMsg";
+                        return res;
+                    }
+                    // convert the message back from byte[] to a string
+                    var message = Encoding.UTF8.GetString(data.Body);
+                    res += "Pkt " + i + " : "+ message.ToString() + "\n";
+                    // ack the message, ie. confirm that we have processed it
+                    // otherwise it will be requeued a bit later
+                    //model.BasicAck(data.DeliveryTag, false);
+                    model.BasicAck(data.DeliveryTag, false);
+                }
+
+
+                logger.Info("Res length " + res.Length);
+                if (res.Length < 1)
+                {
+                    res = "The queue is empty / recieveAllMsg";
+                }
+                con.Close();
+                logger.Info("Recieved = " + res);
+                logger.Info("Closing connection");
+                return res;
+            }
+            catch (NotSupportedException msg)
+            {
+
+                logger.Error(msg);
+                logger.Info("If we get this exception (above), just re-add the RabbitMQ.Client.dll. This happens with version / github ");
+                res = msg.ToString();
+
+            }
+            catch (NullReferenceException msg)
+            {
+                logger.Error(msg);
+                res = msg.ToString() + "\n Is RabbitMQ running?";
+            }
             return res;
         }
 
-       
+
 
     }
 }
