@@ -95,7 +95,15 @@ namespace Communication
             //string queue = cons.getQueue();
            // Helper.followTextBoxLog(richTextBoxLogs, "Get from " + queue);
             string fromConsumer = cons.recieveMsg();
-            Helper.followTextBoxLog(richTextBoxRecieve, fromConsumer);
+            if(fromConsumer.Length < 2)
+            {
+                Helper.followTextBoxLog(richTextBoxRecieve, "Empty queue");
+            }
+            else
+            {
+                Helper.followTextBoxLog(richTextBoxRecieve, fromConsumer);
+            }
+            
         }
 
 
