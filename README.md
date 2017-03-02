@@ -1,32 +1,18 @@
 # TSK_RABBITMQ
 1.1
+A WFA application to that runs with a sender / producer connected to RabbitMQ, and a reciever / consumer also connected to RabbitMQ.
+In the app you can send pkt's and receieve:
+Recieve is implemented with.
+-Get 1 pkt
+-Get all pkt's
 
-Output:
-Log:27/02/2017 21:23:15: Starting	
-Log:27/02/2017 21:23:16: Connection is True
-Log:27/02/2017 21:23:16: State is work 2
+Send is implemeneted with:
+-Send 1 pkt
+-Reconnect if RabbitMQ is down
 
-Log:27/02/2017 21:23:16: Enter a new messages, 5 chars it to small
-Log:27/02/2017 21:23:22: Starting
-Log:27/02/2017 21:23:22: Connection is True
-Log:27/02/2017 21:23:22: State is work 2
-Log:27/02/2017 21:23:22: Publishes msg espenk
+Future:
+-Send file / or x amount of pkt's with id
+-Simulate pkt loss in reciever / consumer check for id, re-send
+-Reconnect in reciever / consumer
+.........
 
-Log:27/02/2017 21:23:47: Starting
-Log:27/02/2017 21:23:49: Connection is False
-Log:27/02/2017 21:23:49: State is retry 3
-
-Log:27/02/2017 21:24:12: Starting
-Log:27/02/2017 21:24:14: Connection is False
-Log:27/02/2017 21:24:14: State is retry 3
-
-Log:27/02/2017 21:24:26: Starting
-Log:27/02/2017 21:24:28: Connection is False
-Log:27/02/2017 21:24:28: State is retry 3
-
-Log:27/02/2017 21:24:29: Reconnect is ok, state is work 2
-
-Log:27/02/2017 21:24:59: Starting
-Log:27/02/2017 21:24:59: Connection is True
-Log:27/02/2017 21:24:59: State is work 2
-Log:27/02/2017 21:24:59: Publishes msg after reconnect
