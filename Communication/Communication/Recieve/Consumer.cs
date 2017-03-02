@@ -168,6 +168,7 @@ namespace Communication.Recieve
             {
                 getRabbitMqConnection();
                 logger.Info("Recieve All->");//
+                int count = 0;
 
                 uint pktSize = model.MessageCount(queue_);
                 int size = (int)pktSize;
@@ -182,10 +183,13 @@ namespace Communication.Recieve
                         res = "(Loop)The queue is empty / recieveMsg";
                     }
                     else {
+                        if (count == 0)
+                        {
+                            res += "\n";//first line
+                        }
                         // convert the message back from byte[] to a string
                         var message = Encoding.UTF8.GetString(data.Body);
-                        res += "\n";//first line
-                        res += "Pkt " + i + " : " + message.ToString() + "\n";
+                        res += "Pkt " + i + " : " + message.ToString();// + "\n";
                         // ack the message, ie. confirm that we have processed it
                         // otherwise it will be requeued a bit later
                         //model.BasicAck(data.DeliveryTag, false);
