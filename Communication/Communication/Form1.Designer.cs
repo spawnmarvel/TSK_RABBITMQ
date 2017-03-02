@@ -75,7 +75,7 @@
             // 
             this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 174);
             this.richTextBoxRecieve.Name = "richTextBoxRecieve";
-            this.richTextBoxRecieve.Size = new System.Drawing.Size(350, 247);
+            this.richTextBoxRecieve.Size = new System.Drawing.Size(435, 247);
             this.richTextBoxRecieve.TabIndex = 4;
             this.richTextBoxRecieve.Text = "";
             // 

@@ -54,11 +54,11 @@ namespace Communication.Recieve
                 conFac.HostName = "localhost";
                 conFac.UserName = "guest";
                 conFac.Password = "guest";
+                conFac.RequestedHeartbeat = 30;
                 //automatic reconnect
                 conFac.AutomaticRecoveryEnabled = true;
                 //conFac.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);
                 con = conFac.CreateConnection();
-                // con.AutoClose = true;
                 setUpInitialTopicQueue();
                 connectionStatus = true;
                 info = "Success";
