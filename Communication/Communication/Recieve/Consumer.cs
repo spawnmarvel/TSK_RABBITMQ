@@ -180,20 +180,17 @@ namespace Communication.Recieve
                     if (data == null)
                     {
                         res = "(Loop)The queue is empty / recieveMsg";
-                        return res;
                     }
-                    // convert the message back from byte[] to a string
-                    var message = Encoding.UTF8.GetString(data.Body);
-                    if(i == 0)
-                    {
+                    else {
+                        // convert the message back from byte[] to a string
+                        var message = Encoding.UTF8.GetString(data.Body);
                         res += "\n";//first line
+                        res += "Pkt " + i + " : " + message.ToString() + "\n";
+                        // ack the message, ie. confirm that we have processed it
+                        // otherwise it will be requeued a bit later
+                        //model.BasicAck(data.DeliveryTag, false);
+                        model.BasicAck(data.DeliveryTag, false);
                     }
-                   
-                    res += "Pkt " + i + " : "+ message.ToString() + "\n";
-                    // ack the message, ie. confirm that we have processed it
-                    // otherwise it will be requeued a bit later
-                    //model.BasicAck(data.DeliveryTag, false);
-                    model.BasicAck(data.DeliveryTag, false);
                 }
 
 

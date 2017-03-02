@@ -114,17 +114,21 @@ namespace Communication.Send
         {
             logger.Info("Publish");
             string info = "";
+            int id = 0;
             try
             {
                 IBasicProperties basicProp = model.CreateBasicProperties();
                 //set persistent true, meaning the msg can be recoverd
                 basicProp.Persistent = true;
-                messages = messages + ";";
+                messages =  messages + ";";
                 byte[] load = Encoding.UTF8.GetBytes(messages);
                 PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_5", "values");
                 model.BasicPublish(adr, basicProp, load);
                 info = messages;
-                logger.Info("Message = " + info);
+                string pub = adr.ToString();
+                info += "ID: " + id + ": To " + pub;
+                logger.Info("Message = " + info + "Published: " + pub);
+                id++;
                 
             }
             catch (NullReferenceException msg)
@@ -136,7 +140,7 @@ namespace Communication.Send
             con.Close();
             logger.Info("Closing connection");
 
-            return "Publishes msg " + info;
+            return "Published msg:" + info;
         }
 
     }

@@ -37,7 +37,7 @@ namespace Communication
             int state = start;
             if (state == start)
             {
-                Helper.followTextBoxLog(richTextBoxLogs, "Send", "Starting, add open file and send, check for loss, cool");
+                Helper.followTextBoxLog(richTextBoxLogs, "Send", "Starting, add open file and send, check for loss, cool\nAlso simulate pkt loss, by ditch ack return");
                 bool status = producer.getRabbitMqConnection();
                 Helper.followTextBoxLog(richTextBoxLogs, "Send", "Connection is " + status);
                 if (status == true)
