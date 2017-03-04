@@ -42,9 +42,9 @@
             // 
             // richTextBoxLogs
             // 
-            this.richTextBoxLogs.Location = new System.Drawing.Point(12, 484);
+            this.richTextBoxLogs.Location = new System.Drawing.Point(13, 462);
             this.richTextBoxLogs.Name = "richTextBoxLogs";
-            this.richTextBoxLogs.Size = new System.Drawing.Size(746, 123);
+            this.richTextBoxLogs.Size = new System.Drawing.Size(724, 123);
             this.richTextBoxLogs.TabIndex = 0;
             this.richTextBoxLogs.Text = "";
             // 
@@ -79,7 +79,7 @@
             // 
             this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 200);
             this.richTextBoxRecieve.Name = "richTextBoxRecieve";
-            this.richTextBoxRecieve.Size = new System.Drawing.Size(435, 266);
+            this.richTextBoxRecieve.Size = new System.Drawing.Size(435, 243);
             this.richTextBoxRecieve.TabIndex = 4;
             this.richTextBoxRecieve.Text = "";
             // 
@@ -130,7 +130,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 619);
+            this.ClientSize = new System.Drawing.Size(768, 619);
             this.Controls.Add(this.buttonSendFile);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.textBoxFile);
