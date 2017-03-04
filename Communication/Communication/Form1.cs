@@ -20,11 +20,14 @@ namespace Communication
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(mainForm));
         private BackgroundWorker bw;
+        private static Boolean fileOK = false;
 
 
         public mainForm()
         {
+
             InitializeComponent();
+            textBoxFile.Enabled = false;
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
@@ -109,6 +112,64 @@ namespace Communication
 
             Helper.followTextBoxLog(richTextBoxRecieve, "RecAll", fromConsumer);
 
+        }
+
+
+        private void LoadNewFile()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                userSDelectedFilePath = ofd.FileName;
+                fileOK = true;
+            }
+
+
+            //throw new NotImplementedException();
+        }
+        public string userSDelectedFilePath
+        {
+            get
+            {
+                return textBoxFile.Text;
+            }
+            set
+            {
+                textBoxFile.Text = value;
+            }
+        }
+
+        private void buttonSendFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxFile_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void openFileDialog1_FileOk_2(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            logger.Info("Ope file");
+            LoadNewFile();
+            Helper.followTextBoxLog(richTextBoxLogs, "Open file", textBoxFile.Text);
+        }
+
+        private void buttonSendFile_Click_1(object sender, EventArgs e)
+        {
+            Producer producer = new Producer();
+            string file = textBoxFile.Text;
+            //check that file is fileOK before sending
+            string res = producer.publishFile(file);
+            Helper.followTextBoxLog(richTextBoxLogs, "SendAll", res);
         }
     }
 }

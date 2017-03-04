@@ -34,6 +34,10 @@
             this.buttonReceive = new System.Windows.Forms.Button();
             this.richTextBoxRecieve = new System.Windows.Forms.RichTextBox();
             this.buttonRecieveAll = new System.Windows.Forms.Button();
+            this.textBoxFile = new System.Windows.Forms.TextBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
+            this.buttonSendFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBoxLogs
@@ -63,7 +67,7 @@
             // 
             // buttonReceive
             // 
-            this.buttonReceive.Location = new System.Drawing.Point(12, 136);
+            this.buttonReceive.Location = new System.Drawing.Point(611, 51);
             this.buttonReceive.Name = "buttonReceive";
             this.buttonReceive.Size = new System.Drawing.Size(126, 23);
             this.buttonReceive.TabIndex = 3;
@@ -73,15 +77,15 @@
             // 
             // richTextBoxRecieve
             // 
-            this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 174);
+            this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 200);
             this.richTextBoxRecieve.Name = "richTextBoxRecieve";
-            this.richTextBoxRecieve.Size = new System.Drawing.Size(435, 247);
+            this.richTextBoxRecieve.Size = new System.Drawing.Size(435, 266);
             this.richTextBoxRecieve.TabIndex = 4;
             this.richTextBoxRecieve.Text = "";
             // 
             // buttonRecieveAll
             // 
-            this.buttonRecieveAll.Location = new System.Drawing.Point(236, 136);
+            this.buttonRecieveAll.Location = new System.Drawing.Point(611, 98);
             this.buttonRecieveAll.Name = "buttonRecieveAll";
             this.buttonRecieveAll.Size = new System.Drawing.Size(126, 23);
             this.buttonRecieveAll.TabIndex = 5;
@@ -89,11 +93,47 @@
             this.buttonRecieveAll.UseVisualStyleBackColor = true;
             this.buttonRecieveAll.Click += new System.EventHandler(this.buttonRecieveAll_Click);
             // 
+            // textBoxFile
+            // 
+            this.textBoxFile.Location = new System.Drawing.Point(13, 140);
+            this.textBoxFile.Name = "textBoxFile";
+            this.textBoxFile.Size = new System.Drawing.Size(322, 20);
+            this.textBoxFile.TabIndex = 7;
+            this.textBoxFile.TextChanged += new System.EventHandler(this.textBoxFile_TextChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk_2);
+            // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Location = new System.Drawing.Point(12, 95);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonOpenFile.TabIndex = 8;
+            this.buttonOpenFile.Text = "Open File";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
+            // buttonSendFile
+            // 
+            this.buttonSendFile.Location = new System.Drawing.Point(372, 98);
+            this.buttonSendFile.Name = "buttonSendFile";
+            this.buttonSendFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendFile.TabIndex = 9;
+            this.buttonSendFile.Text = "Send File";
+            this.buttonSendFile.UseVisualStyleBackColor = true;
+            this.buttonSendFile.Click += new System.EventHandler(this.buttonSendFile_Click_1);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 619);
+            this.Controls.Add(this.buttonSendFile);
+            this.Controls.Add(this.buttonOpenFile);
+            this.Controls.Add(this.textBoxFile);
             this.Controls.Add(this.buttonRecieveAll);
             this.Controls.Add(this.richTextBoxRecieve);
             this.Controls.Add(this.buttonReceive);
@@ -115,6 +155,10 @@
         private System.Windows.Forms.Button buttonReceive;
         private System.Windows.Forms.RichTextBox richTextBoxRecieve;
         private System.Windows.Forms.Button buttonRecieveAll;
+        private System.Windows.Forms.TextBox textBoxFile;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button buttonOpenFile;
+        private System.Windows.Forms.Button buttonSendFile;
     }
 }
 

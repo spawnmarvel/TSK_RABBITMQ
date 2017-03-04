@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Amqp\AmqpMessagingService.cs" />
+    <Compile Include="Files\Read.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

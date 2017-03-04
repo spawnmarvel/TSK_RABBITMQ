@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 using System.IO;
-using Communication.Amqp;
+using Communication.Files;
+
 
 
 namespace Communication.Send
@@ -120,7 +121,7 @@ namespace Communication.Send
                 IBasicProperties basicProp = model.CreateBasicProperties();
                 //set persistent true, meaning the msg can be recoverd
                 basicProp.Persistent = true;
-                messages =  messages + ";";
+                messages = messages + ";";
                 byte[] load = Encoding.UTF8.GetBytes(messages);
                 PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_5", "values");
                 model.BasicPublish(adr, basicProp, load);
@@ -129,7 +130,7 @@ namespace Communication.Send
                 info += "ID: " + id + ": To " + pub;
                 logger.Info("Message = " + info + "Published: " + pub);
                 id++;
-                
+
             }
             catch (NullReferenceException msg)
             {
@@ -143,5 +144,17 @@ namespace Communication.Send
             return "Published msg:" + info;
         }
 
+        public string publishFile(string file)
+        {
+            logger.Info("Starting send file");
+            string res = "File is sent, amount of pkt's";
+            // call file reader, make id after splitt by ;
+            res += Read.readFile(file);
+            return res;
+        }
+
     }
+
+
+
 }
