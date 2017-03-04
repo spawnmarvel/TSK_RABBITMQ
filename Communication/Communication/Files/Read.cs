@@ -27,11 +27,17 @@ namespace Communication.Files
                 while ((line = sr.ReadLine()) != null)
                 {
 
-                    res += line + ";";
+                    res += line + "\n;";
 
                 }
                 sr.Dispose();
 
+            }
+            catch (FileNotFoundException msg)
+            {
+
+                res = msg.ToString();
+                logger.Error(res);
             }
             catch (IOException msg)
             {
