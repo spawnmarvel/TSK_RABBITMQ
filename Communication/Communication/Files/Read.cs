@@ -36,8 +36,8 @@ namespace Communication.Files
             catch (FileNotFoundException msg)
             {
 
+                logger.Error(msg);
                 res = msg.ToString();
-                logger.Error(res);
             }
             catch (IOException msg)
             {
