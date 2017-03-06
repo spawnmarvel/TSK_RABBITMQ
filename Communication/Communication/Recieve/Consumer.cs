@@ -254,6 +254,7 @@ namespace Communication.Recieve
         /// <returns></returns>
         public string recieveMsgButNotSendAck()
         {
+            logger.Info("Simulate PKT loss, no ack sent when pkt is recieved");
             string res = "";
 
             try
