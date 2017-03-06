@@ -21,5 +21,6 @@ namespace Communication.Utility
             loggerForm.AppendText("Log:" + da + ": " + action + ": "+ log);
             loggerForm.ScrollToCaret();
         }
+        
     }
 }

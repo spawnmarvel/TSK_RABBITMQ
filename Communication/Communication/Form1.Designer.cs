@@ -38,6 +38,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonSendFile = new System.Windows.Forms.Button();
+            this.buttonSimulatePktLoss = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBoxLogs
@@ -85,7 +86,7 @@
             // 
             // buttonRecieveAll
             // 
-            this.buttonRecieveAll.Location = new System.Drawing.Point(611, 98);
+            this.buttonRecieveAll.Location = new System.Drawing.Point(611, 137);
             this.buttonRecieveAll.Name = "buttonRecieveAll";
             this.buttonRecieveAll.Size = new System.Drawing.Size(126, 23);
             this.buttonRecieveAll.TabIndex = 5;
@@ -125,11 +126,22 @@
             this.buttonSendFile.UseVisualStyleBackColor = true;
             this.buttonSendFile.Click += new System.EventHandler(this.buttonSendFile_Click);
             // 
+            // buttonSimulatePktLoss
+            // 
+            this.buttonSimulatePktLoss.Location = new System.Drawing.Point(611, 94);
+            this.buttonSimulatePktLoss.Name = "buttonSimulatePktLoss";
+            this.buttonSimulatePktLoss.Size = new System.Drawing.Size(126, 23);
+            this.buttonSimulatePktLoss.TabIndex = 10;
+            this.buttonSimulatePktLoss.Text = "Simulate PKT Loss";
+            this.buttonSimulatePktLoss.UseVisualStyleBackColor = true;
+            this.buttonSimulatePktLoss.Click += new System.EventHandler(this.buttonSimulatePktLoss_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 619);
+            this.Controls.Add(this.buttonSimulatePktLoss);
             this.Controls.Add(this.buttonSendFile);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.textBoxFile);
@@ -158,6 +170,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button buttonOpenFile;
         private System.Windows.Forms.Button buttonSendFile;
+        private System.Windows.Forms.Button buttonSimulatePktLoss;
     }
 }
 

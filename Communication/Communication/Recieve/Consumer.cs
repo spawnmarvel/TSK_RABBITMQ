@@ -42,7 +42,12 @@ namespace Communication.Recieve
         {
             return con;
         }
-        public bool getRabbitMqConnection()
+
+        /// <summary>
+        /// create rabbitMQ connection
+        /// </summary>
+        /// <returns></returns>
+        public bool createRabbitMqConection()
         {
             logger.Info("Create / get rabbit mq connection");
             string info = "";
@@ -88,12 +93,22 @@ namespace Communication.Recieve
             return connectionStatus;
 
         }
+
+        /// <summary>
+        /// reconnect to RabbitMQ
+        /// </summary>
         public void reConnectToRabbit()
         {
             conFac.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
             connectionStatus = false;
+            logger.Info("In reconnect..");
+
 
         }
+
+        /// <summary>
+        /// initialize model / channel
+        /// </summary>
         private void setUpInitialTopicQueue()
         {
             logger.Info("set up initial queue");
@@ -110,13 +125,17 @@ namespace Communication.Recieve
 
         }
 
+        /// <summary>
+        /// recieve 1 pkt from RabbitMQ
+        /// </summary>
+        /// <returns></returns>
         public string recieveMsg()
         {
             string res = "";
 
             try
             {
-                getRabbitMqConnection();
+                createRabbitMqConection();
                 logger.Info("Recieve->");//
 
 
@@ -153,27 +172,32 @@ namespace Communication.Recieve
                 res = msg.ToString();
 
             }
-            catch(NullReferenceException msg)
+            catch (NullReferenceException msg)
             {
                 logger.Error(msg);
-                res =  msg.ToString() + "\n Is RabbitMQ running?";
+                res = msg.ToString() + "\n Is RabbitMQ running?";
             }
             return res;
         }
+
+        /// <summary>
+        /// recieve all Pkt from RabbitMQ
+        /// </summary>
+        /// <returns></returns>
         public string recieveAllMsg()
         {
             string res = "";
 
             try
             {
-                getRabbitMqConnection();
+                createRabbitMqConection();
                 logger.Info("Recieve All->");//
                 int count = 0;
 
                 uint pktSize = model.MessageCount(queue_);
-                int size = (int)pktSize;
-                logger.Info("Size " + size);
-                for (int i = 0; i < size; i++)
+                int amontOfPkt = (int)pktSize;
+                logger.Info("Size " + amontOfPkt);
+                for (int i = 0; i < amontOfPkt; i++)
                 {
                     // do a simple poll of the queue
                     var data = model.BasicGet(queue_, false);
@@ -185,14 +209,14 @@ namespace Communication.Recieve
                     else {
                         if (count == 0)
                         {
-                            res += "\n";//first line
+                            res += "\n";//first line or pkt
                         }
                         // convert the message back from byte[] to a string
                         var message = Encoding.UTF8.GetString(data.Body);
                         res += message.ToString();// + "\n";
-                        // ack the message, ie. confirm that we have processed it
-                        // otherwise it will be requeued a bit later
-                        //model.BasicAck(data.DeliveryTag, false);
+                                                  // ack the message, ie. confirm that we have processed it
+                                                  // otherwise it will be requeued a bit later
+                                                  //model.BasicAck(data.DeliveryTag, false);                         
                         model.BasicAck(data.DeliveryTag, false);
                     }
                 }
@@ -202,6 +226,61 @@ namespace Communication.Recieve
                 if (res.Length < 1)
                 {
                     res = "The queue is empty / recieveAllMsg";
+                }
+                con.Close();
+                logger.Info("Recieved = " + res);
+                logger.Info("Closing connection");
+                return res;
+            }
+            catch (NotSupportedException msg)
+            {
+
+                logger.Error(msg);
+                logger.Info("If we get this exception (above), just re-add the RabbitMQ.Client.dll. This happens with version / github ");
+                res = msg.ToString();
+
+            }
+            catch (NullReferenceException msg)
+            {
+                logger.Error(msg);
+                res = msg.ToString() + "\n Is RabbitMQ running?";
+            }
+            return res;
+        }
+        
+        /// <summary>
+        /// recieve pkt but not send ack back to rabbit / to simulate pkt loss
+        /// </summary>
+        /// <returns></returns>
+        public string recieveMsgButNotSendAck()
+        {
+            string res = "";
+
+            try
+            {
+                createRabbitMqConection();
+                logger.Info("Recieve->");//
+
+
+                // do a simple poll of the queue
+                var data = model.BasicGet(queue_, false);
+                // the message is null if the queue was empty
+                if (data == null)
+                {
+                    res = "The queue is empty / recieveMsg";
+                    return res;
+                }
+                // convert the message back from byte[] to a string
+                var message = Encoding.UTF8.GetString(data.Body);
+                // ack the message, ie. confirm that we have processed it
+                // otherwise it will be requeued a bit later
+                //model.BasicAck(data.DeliveryTag, false); now we will not send ack back to rabbit som the pkt wil stay in the queue
+
+                res += message.ToString();
+                logger.Info("Res length " + res.Length);
+                if (res.Length < 2)
+                {
+                    res = "The queue is empty / recieveMsg";
                 }
                 con.Close();
                 logger.Info("Recieved = " + res);

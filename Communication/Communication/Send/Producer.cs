@@ -48,6 +48,11 @@ namespace Communication.Send
         {
             return con;
         }
+
+        /// <summary>
+        /// create rabbitMQ connection
+        /// </summary>
+        /// <returns></returns>
         public bool createRabbitMqConnection()
         {
             logger.Info("Create / Get rabbitmq connection");
@@ -101,6 +106,9 @@ namespace Communication.Send
             logger.Info("In reconnect..");
 
         }
+        /// <summary>
+        /// initialize model / channel
+        /// </summary>
         private void setUpInitialTopicQueue()
         {
             logger.Info("Set up initial topic queue");
@@ -116,6 +124,11 @@ namespace Communication.Send
             model.QueueBind(queue, "to_oil_5", "values");
         }
 
+        /// <summary>
+        /// send 1 pkt to rabbitMQ
+        /// </summary>
+        /// <param name="messages"></param>
+        /// <returns></returns>
         public string publishMsg(string messages)
         {
             logger.Info("Publish");
@@ -149,6 +162,11 @@ namespace Communication.Send
             return "Published msg:" + info;
         }
 
+        /// <summary>
+        /// send a file to rabbitMQ
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public string publishFile(string file)
         {
             logger.Info("Starting send file");

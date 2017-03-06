@@ -174,5 +174,19 @@ namespace Communication
             }
            
         }
+
+        private void buttonSumilatePktLoss_Click(object sender, EventArgs e)
+        {
+            Helper.followTextBoxLog(richTextBoxLogs, "Rec1", "Simulating pkt loss, no ack is sent back to RabbitMQ");
+            //recieveMsgButNotSendAck
+        }
+
+        private void buttonSimulatePktLoss_Click(object sender, EventArgs e)
+        {
+            Helper.followTextBoxLog(richTextBoxLogs, "Rec1NoAck", "Simulating pkt loss, no ack is sent back to RabbitMQ");
+            Consumer cons = new Consumer();
+            string pktWithNoAck = cons.recieveMsgButNotSendAck();
+            Helper.followTextBoxLog(richTextBoxRecieve, "Rec1NoAck", pktWithNoAck);
+        }
     }
 }
