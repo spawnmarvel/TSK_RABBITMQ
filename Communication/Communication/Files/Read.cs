@@ -39,12 +39,17 @@ namespace Communication.Files
                 logger.Error(msg);
                 res = msg.ToString();
             }
+            catch (ArgumentException msg)
+            {
+                logger.Error(msg);
+                res = msg.ToString();
+            }
             catch (IOException msg)
             {
                 logger.Error(msg);
                 res = msg.ToString();
             }
-            logger.Info(res);
+            logger.Debug(res);
             return res;
 
         }

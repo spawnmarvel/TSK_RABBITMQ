@@ -99,7 +99,6 @@
             this.textBoxFile.Name = "textBoxFile";
             this.textBoxFile.Size = new System.Drawing.Size(322, 20);
             this.textBoxFile.TabIndex = 7;
-            this.textBoxFile.TextChanged += new System.EventHandler(this.textBoxFile_TextChanged);
             // 
             // openFileDialog1
             // 
@@ -118,13 +117,13 @@
             // 
             // buttonSendFile
             // 
-            this.buttonSendFile.Location = new System.Drawing.Point(372, 98);
+            this.buttonSendFile.Location = new System.Drawing.Point(372, 136);
             this.buttonSendFile.Name = "buttonSendFile";
             this.buttonSendFile.Size = new System.Drawing.Size(75, 23);
             this.buttonSendFile.TabIndex = 9;
-            this.buttonSendFile.Text = "Send File";
+            this.buttonSendFile.Text = "Send File MQ";
             this.buttonSendFile.UseVisualStyleBackColor = true;
-            this.buttonSendFile.Click += new System.EventHandler(this.buttonSendFile_Click_1);
+            this.buttonSendFile.Click += new System.EventHandler(this.buttonSendFile_Click);
             // 
             // mainForm
             // 

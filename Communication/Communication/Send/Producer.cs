@@ -31,6 +31,11 @@ namespace Communication.Send
             //connection status in only true if try getRabbitMqConnction has no exceptions
             connectionStatus = false;
         }
+
+        public bool getStatusRabbitMqConnection()
+        {
+            return connectionStatus;
+        }
         public string getQueue()
         {
             return queue;
@@ -43,7 +48,7 @@ namespace Communication.Send
         {
             return con;
         }
-        public bool getRabbitMqConnection()
+        public bool createRabbitMqConnection()
         {
             logger.Info("Create / Get rabbitmq connection");
             string info = "";
@@ -147,9 +152,47 @@ namespace Communication.Send
         public string publishFile(string file)
         {
             logger.Info("Starting send file");
-            string res = "File is sent, amount of pkt's";
-            // call file reader, make id after splitt by ;
-            res += Read.readFile(file);
+            string res = "File is sent, amount of pkt's ";
+            string message = "";
+            int pub = 0;
+            try
+            {
+                string[] arr = Read.readFile(file).Split('.');
+                IBasicProperties basicProp = model.CreateBasicProperties();
+                //set persistent true, meaning the msg can be recoverd
+                basicProp.Persistent = true;
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    // IBasicProperties basicProp = model.CreateBasicProperties();
+                    //set persistent true, meaning the msg can be recoverd
+                    //basicProp.Persistent = true;
+                    //pub = i;
+                    //message = "Id-" + pub +"-"+arr[i];
+                    message = arr[i];
+                    if (message.Length == 1)
+                    {
+                        //it empty
+                    }
+                    else {
+                        pub = i+1;//we ditch the zero and start at 1
+                       
+                        message = "Id-" + pub + "-" + message;
+                        logger.Debug(message + "len:" + message.Length);
+                        byte[] load = Encoding.UTF8.GetBytes(message);
+                        PublicationAddress adr = new PublicationAddress(ExchangeType.Topic, "to_oil_5", "values");
+                        model.BasicPublish(adr, basicProp, load);
+                    }
+                }
+
+            }
+            catch (NullReferenceException msg)
+            {
+                logger.Error(msg);
+                res = msg.ToString();
+            }
+            //res += Read.readFile(file);
+            res += " = " + pub;
+            logger.Info(res);
             return res;
         }
 

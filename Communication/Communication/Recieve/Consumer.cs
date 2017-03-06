@@ -112,7 +112,7 @@ namespace Communication.Recieve
 
         public string recieveMsg()
         {
-            string res = "\nPKT 0 : ";
+            string res = "";
 
             try
             {
@@ -189,7 +189,7 @@ namespace Communication.Recieve
                         }
                         // convert the message back from byte[] to a string
                         var message = Encoding.UTF8.GetString(data.Body);
-                        res += "Pkt " + i + " : " + message.ToString();// + "\n";
+                        res += message.ToString();// + "\n";
                         // ack the message, ie. confirm that we have processed it
                         // otherwise it will be requeued a bit later
                         //model.BasicAck(data.DeliveryTag, false);

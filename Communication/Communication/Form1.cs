@@ -41,7 +41,8 @@ namespace Communication
             if (state == start)
             {
                 Helper.followTextBoxLog(richTextBoxLogs, "Send", "Starting, add open file and send, check for loss, cool\nAlso simulate pkt loss, by ditch ack return");
-                bool status = producer.getRabbitMqConnection();
+                producer.createRabbitMqConnection();
+                bool status = producer.getStatusRabbitMqConnection();
                 Helper.followTextBoxLog(richTextBoxLogs, "Send", "Connection is " + status);
                 if (status == true)
                 {
@@ -60,7 +61,7 @@ namespace Communication
                         }
                         else
                         {
-                            IModel mod = producer.getIModel();
+                            //IModel mod = producer.getIModel();
                             string sent = producer.publishMsg(msg);
                             Helper.followTextBoxLog(richTextBoxLogs, "Send", sent);
                             textBoxSend.Text = "";
@@ -75,7 +76,7 @@ namespace Communication
                     producer.reConnectToRabbit();
                     string info = "State is retry " + state + ". Is RabbitRunning? ";
                     Helper.followTextBoxLog(richTextBoxLogs, "Send", info);
-                    if (producer.getRabbitMqConnection() == true)
+                    if (producer.createRabbitMqConnection() == true)
                     {
                         state = work;
                         Helper.followTextBoxLog(richTextBoxLogs, "Send", "Reconnect is ok, state is work " + state);
@@ -115,6 +116,14 @@ namespace Communication
         }
 
 
+        
+
+
+        private void openFileDialog1_FileOk_2(object sender, CancelEventArgs e)
+        {
+
+        }
+
         private void LoadNewFile()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -139,37 +148,31 @@ namespace Communication
                 textBoxFile.Text = value;
             }
         }
-
-        private void buttonSendFile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxFile_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void openFileDialog1_FileOk_2(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
-            logger.Info("Ope file");
+            logger.Info("Open file");
             LoadNewFile();
             Helper.followTextBoxLog(richTextBoxLogs, "Open file", textBoxFile.Text);
         }
 
-        private void buttonSendFile_Click_1(object sender, EventArgs e)
+       
+
+        private void buttonSendFile_Click(object sender, EventArgs e)
         {
-            Producer producer = new Producer();
-            string file = textBoxFile.Text;
-            //check that file is fileOK before sending
-            string res = producer.publishFile(file);
-            Helper.followTextBoxLog(richTextBoxLogs, "SendAll", res);
+            if (fileOK == true)
+            {
+                Producer producer = new Producer();
+                producer.createRabbitMqConnection();
+                string file = textBoxFile.Text;
+                //check that file is fileOK before sending
+                string res = producer.publishFile(file);
+                Helper.followTextBoxLog(richTextBoxLogs, "SendAll", res);
+            }
+            else
+            {
+                Helper.followTextBoxLog(richTextBoxLogs, "SendAll", "The file can not be empty");
+            }
+           
         }
     }
 }
