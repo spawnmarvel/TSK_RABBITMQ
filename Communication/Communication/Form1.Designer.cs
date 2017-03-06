@@ -60,9 +60,9 @@
             // 
             this.buttonSend.Location = new System.Drawing.Point(372, 54);
             this.buttonSend.Name = "buttonSend";
-            this.buttonSend.Size = new System.Drawing.Size(75, 23);
+            this.buttonSend.Size = new System.Drawing.Size(103, 23);
             this.buttonSend.TabIndex = 2;
-            this.buttonSend.Text = "Send MQ";
+            this.buttonSend.Text = "Send PKT MQ";
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
@@ -120,7 +120,7 @@
             // 
             this.buttonSendFile.Location = new System.Drawing.Point(372, 136);
             this.buttonSendFile.Name = "buttonSendFile";
-            this.buttonSendFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendFile.Size = new System.Drawing.Size(103, 23);
             this.buttonSendFile.TabIndex = 9;
             this.buttonSendFile.Text = "Send File MQ";
             this.buttonSendFile.UseVisualStyleBackColor = true;
