@@ -39,6 +39,7 @@
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonSendFile = new System.Windows.Forms.Button();
             this.buttonSimulatePktLoss = new System.Windows.Forms.Button();
+            this.panelSimulation = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // richTextBoxLogs
@@ -136,11 +137,20 @@
             this.buttonSimulatePktLoss.UseVisualStyleBackColor = true;
             this.buttonSimulatePktLoss.Click += new System.EventHandler(this.buttonSimulatePktLoss_Click);
             // 
+            // panelSimulation
+            // 
+            this.panelSimulation.Location = new System.Drawing.Point(489, 200);
+            this.panelSimulation.Name = "panelSimulation";
+            this.panelSimulation.Size = new System.Drawing.Size(200, 243);
+            this.panelSimulation.TabIndex = 11;
+           
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 619);
+            this.Controls.Add(this.panelSimulation);
             this.Controls.Add(this.buttonSimulatePktLoss);
             this.Controls.Add(this.buttonSendFile);
             this.Controls.Add(this.buttonOpenFile);
@@ -171,6 +181,7 @@
         private System.Windows.Forms.Button buttonOpenFile;
         private System.Windows.Forms.Button buttonSendFile;
         private System.Windows.Forms.Button buttonSimulatePktLoss;
+        private System.Windows.Forms.Panel panelSimulation;
     }
 }
 

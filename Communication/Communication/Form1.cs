@@ -21,6 +21,7 @@ namespace Communication
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(mainForm));
         private BackgroundWorker bw;
         private static Boolean fileOK = false;
+       
 
 
         public mainForm()
@@ -64,6 +65,7 @@ namespace Communication
                             //IModel mod = producer.getIModel();
                             string sent = producer.publishMsg(msg);
                             Helper.followTextBoxLog(richTextBoxLogs, "Send", sent);
+
                             textBoxSend.Text = "";
                             state = start;
 
@@ -116,7 +118,7 @@ namespace Communication
         }
 
 
-        
+
 
 
         private void openFileDialog1_FileOk_2(object sender, CancelEventArgs e)
@@ -155,7 +157,7 @@ namespace Communication
             Helper.followTextBoxLog(richTextBoxLogs, "Open file", textBoxFile.Text);
         }
 
-       
+
 
         private void buttonSendFile_Click(object sender, EventArgs e)
         {
@@ -172,7 +174,7 @@ namespace Communication
             {
                 Helper.followTextBoxLog(richTextBoxLogs, "SendAll", "The file can not be empty");
             }
-           
+
         }
 
         private void buttonSumilatePktLoss_Click(object sender, EventArgs e)
@@ -187,6 +189,10 @@ namespace Communication
             Consumer cons = new Consumer();
             string pktWithNoAck = cons.recieveMsgButNotSendAck();
             Helper.followTextBoxLog(richTextBoxRecieve, "Rec1NoAck", pktWithNoAck);
+           
         }
+
+       
+        
     }
 }
