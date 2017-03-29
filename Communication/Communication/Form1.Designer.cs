@@ -143,7 +143,6 @@
             this.panelSimulation.Name = "panelSimulation";
             this.panelSimulation.Size = new System.Drawing.Size(200, 243);
             this.panelSimulation.TabIndex = 11;
-           
             // 
             // mainForm
             // 
@@ -162,7 +161,7 @@
             this.Controls.Add(this.textBoxSend);
             this.Controls.Add(this.richTextBoxLogs);
             this.Name = "mainForm";
-            this.Text = "Communication";
+            this.Text = "Communication RabbitMQ Tester";
             this.ResumeLayout(false);
             this.PerformLayout();
 
