@@ -21,6 +21,7 @@ namespace Communication.Send
         //Exchange:model.ExchangeDeclare("to_oil_2", ExchangeType.Topic, true);
         //Msg:basicProp.Persistent = true;
         //com from work
+        //from home
         private ConnectionFactory conFac { get; set; }
         private IModel model { get; set; }
         private IConnection con { get; set; }
