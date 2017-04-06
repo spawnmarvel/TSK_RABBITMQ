@@ -20,7 +20,7 @@ namespace Communication.Send
         //Queue: model.QueueDeclare("oil_2", true, false, false, null);
         //Exchange:model.ExchangeDeclare("to_oil_2", ExchangeType.Topic, true);
         //Msg:basicProp.Persistent = true;
-        //com
+        //com from work
         private ConnectionFactory conFac { get; set; }
         private IModel model { get; set; }
         private IConnection con { get; set; }
