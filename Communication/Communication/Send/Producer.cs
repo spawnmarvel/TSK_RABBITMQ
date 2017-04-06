@@ -171,7 +171,7 @@ namespace Communication.Send
         {
             logger.Info("Starting send file");
             string res = "File is sent, amount of pkt's ";
-            string message = "";
+            string message = "";//
             int pub = 0;
             try
             {
