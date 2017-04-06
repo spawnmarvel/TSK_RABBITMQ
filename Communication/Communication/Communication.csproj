@@ -75,9 +75,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recieve\Consumer.cs" />
@@ -86,8 +83,6 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\Communication.mainForm.resources" />
-    <EmbeddedResource Include="obj\Debug\Communication.Properties.Resources.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -97,13 +92,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="bin\Debug\Communication.exe.config" />
-    <None Include="bin\Debug\Communication.vshost.exe.config" />
-    <None Include="bin\Debug\Communication.vshost.exe.manifest" />
-    <None Include="obj\Debug\Communication.csproj.GenerateResource.Cache" />
-    <None Include="obj\Debug\Communication.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -118,27 +106,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\Communication.exe" />
-    <Content Include="bin\Debug\Communication.pdb" />
-    <Content Include="bin\Debug\Communication.vshost.exe" />
-    <Content Include="bin\Debug\log4net.dll" />
-    <Content Include="bin\Debug\log4net.xml" />
-    <Content Include="bin\Debug\logs\log.1.txt" />
-    <Content Include="bin\Debug\logs\log.2.txt" />
-    <Content Include="bin\Debug\logs\log.3.txt" />
-    <Content Include="bin\Debug\logs\log.4.txt" />
-    <Content Include="bin\Debug\logs\log.5.txt" />
-    <Content Include="bin\Debug\logs\log.txt" />
-    <Content Include="bin\Debug\RabbitMQ.Client.dll" />
-    <Content Include="bin\Debug\RabbitMQ.Client.xml" />
-    <Content Include="obj\Debug\Communication.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\Communication.exe" />
-    <Content Include="obj\Debug\Communication.pdb" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
