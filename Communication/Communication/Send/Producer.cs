@@ -122,6 +122,12 @@ namespace Communication.Send
             logger.Info("In reconnect..");
 
         }
+        public string getRmqProp()
+        {
+            string res = conFac.ClientProperties.ToString();
+            res += "\n"+conFac.Endpoint.ToString();
+            return res;
+        }
         /// <summary>
         /// initialize model / channel
         /// </summary>

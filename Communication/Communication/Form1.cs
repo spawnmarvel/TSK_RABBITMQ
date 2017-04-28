@@ -172,7 +172,9 @@ namespace Communication
                 {
                     logger.Debug("What is connection status " + producer.getStatusRabbitMqConnection());
                     producer.createRabbitMqConnection();
+                   // producer.reConnectToRabbit();
                 }
+                logger.Info(producer.getRmqProp());
                 logger.Info("What is connection status " + producer.getStatusRabbitMqConnection());
                 string file = textBoxFile.Text;
                 //check that file is fileOK before sending
