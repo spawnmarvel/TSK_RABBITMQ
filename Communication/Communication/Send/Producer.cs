@@ -27,6 +27,7 @@ namespace Communication.Send
         private IConnection con { get; set; }
         private bool connectionStatus;
         private string queue = "oil_5";
+        private static IConnection instance;
 
         public Producer()
         {
@@ -34,6 +35,13 @@ namespace Communication.Send
             connectionStatus = false;
         }
 
+        //public static IConnection getInstance()
+        //{
+        //    if(con == null)
+        //    {
+
+        //    }
+        //}
         public bool getStatusRabbitMqConnection()
         {
             return connectionStatus;
@@ -69,6 +77,8 @@ namespace Communication.Send
                 conFac.Password = "guest";
                 conFac.RequestedHeartbeat = 30;
                 //automatic reconnect
+                //maybe not use this one, could create many channels
+                //
                 conFac.AutomaticRecoveryEnabled = true;
                 //conFac.NetworkRecoveryInterval = TimeSpan.FromSeconds(20);
                 con = conFac.CreateConnection();
@@ -101,6 +111,10 @@ namespace Communication.Send
             return connectionStatus;
 
         }
+
+        /// <summary>
+        /// maybe not uses this one, but create new and initiate connection again
+        /// </summary>
         public void reConnectToRabbit()
         {
             conFac.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);

@@ -21,14 +21,17 @@ namespace Communication
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(mainForm));
         private BackgroundWorker bw;
         private static Boolean fileOK = false;
+        private Producer producer;
        
 
 
         public mainForm()
         {
-
+            logger.Info("Main started");
             InitializeComponent();
             textBoxFile.Enabled = false;
+            producer = new Producer();
+            producer.createRabbitMqConnection();
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
@@ -163,8 +166,14 @@ namespace Communication
         {
             if (fileOK == true)
             {
-                Producer producer = new Producer();
-                producer.createRabbitMqConnection();
+               
+                //producer.createRabbitMqConnection();//moved to main start in form
+                if(producer.getStatusRabbitMqConnection() == false)
+                {
+                    logger.Debug("What is connection status " + producer.getStatusRabbitMqConnection());
+                    producer.createRabbitMqConnection();
+                }
+                logger.Info("What is connection status " + producer.getStatusRabbitMqConnection());
                 string file = textBoxFile.Text;
                 //check that file is fileOK before sending
                 string res = producer.publishFile(file);
