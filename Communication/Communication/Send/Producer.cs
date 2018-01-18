@@ -30,7 +30,7 @@ namespace Communication.Send
         private static IConnection instance;
 
         /// <summary>
-        /// Constructor (18.01.2018)
+        /// Constructor (18.01.2018) a test with cmd to github
         /// </summary>
         public Producer()
         {
