@@ -39,14 +39,16 @@
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonSendFile = new System.Windows.Forms.Button();
             this.buttonSimulatePktLoss = new System.Windows.Forms.Button();
-            this.panelSimulation = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBoxLogs
             // 
-            this.richTextBoxLogs.Location = new System.Drawing.Point(13, 462);
+            this.richTextBoxLogs.Location = new System.Drawing.Point(13, 478);
             this.richTextBoxLogs.Name = "richTextBoxLogs";
-            this.richTextBoxLogs.Size = new System.Drawing.Size(724, 123);
+            this.richTextBoxLogs.Size = new System.Drawing.Size(724, 148);
             this.richTextBoxLogs.TabIndex = 0;
             this.richTextBoxLogs.Text = "";
             // 
@@ -79,15 +81,15 @@
             // 
             // richTextBoxRecieve
             // 
-            this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 200);
+            this.richTextBoxRecieve.Location = new System.Drawing.Point(12, 256);
             this.richTextBoxRecieve.Name = "richTextBoxRecieve";
-            this.richTextBoxRecieve.Size = new System.Drawing.Size(435, 243);
+            this.richTextBoxRecieve.Size = new System.Drawing.Size(725, 187);
             this.richTextBoxRecieve.TabIndex = 4;
             this.richTextBoxRecieve.Text = "";
             // 
             // buttonRecieveAll
             // 
-            this.buttonRecieveAll.Location = new System.Drawing.Point(611, 137);
+            this.buttonRecieveAll.Location = new System.Drawing.Point(611, 95);
             this.buttonRecieveAll.Name = "buttonRecieveAll";
             this.buttonRecieveAll.Size = new System.Drawing.Size(126, 23);
             this.buttonRecieveAll.TabIndex = 5;
@@ -97,9 +99,9 @@
             // 
             // textBoxFile
             // 
-            this.textBoxFile.Location = new System.Drawing.Point(13, 140);
+            this.textBoxFile.Location = new System.Drawing.Point(108, 112);
             this.textBoxFile.Name = "textBoxFile";
-            this.textBoxFile.Size = new System.Drawing.Size(322, 20);
+            this.textBoxFile.Size = new System.Drawing.Size(227, 20);
             this.textBoxFile.TabIndex = 7;
             // 
             // openFileDialog1
@@ -109,7 +111,7 @@
             // 
             // buttonOpenFile
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(12, 95);
+            this.buttonOpenFile.Location = new System.Drawing.Point(13, 109);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(75, 23);
             this.buttonOpenFile.TabIndex = 8;
@@ -119,7 +121,7 @@
             // 
             // buttonSendFile
             // 
-            this.buttonSendFile.Location = new System.Drawing.Point(372, 136);
+            this.buttonSendFile.Location = new System.Drawing.Point(372, 112);
             this.buttonSendFile.Name = "buttonSendFile";
             this.buttonSendFile.Size = new System.Drawing.Size(103, 23);
             this.buttonSendFile.TabIndex = 9;
@@ -129,7 +131,7 @@
             // 
             // buttonSimulatePktLoss
             // 
-            this.buttonSimulatePktLoss.Location = new System.Drawing.Point(611, 94);
+            this.buttonSimulatePktLoss.Location = new System.Drawing.Point(611, 149);
             this.buttonSimulatePktLoss.Name = "buttonSimulatePktLoss";
             this.buttonSimulatePktLoss.Size = new System.Drawing.Size(126, 23);
             this.buttonSimulatePktLoss.TabIndex = 10;
@@ -137,19 +139,43 @@
             this.buttonSimulatePktLoss.UseVisualStyleBackColor = true;
             this.buttonSimulatePktLoss.Click += new System.EventHandler(this.buttonSimulatePktLoss_Click);
             // 
-            // panelSimulation
+            // label1
             // 
-            this.panelSimulation.Location = new System.Drawing.Point(489, 200);
-            this.panelSimulation.Name = "panelSimulation";
-            this.panelSimulation.Size = new System.Drawing.Size(200, 243);
-            this.panelSimulation.TabIndex = 11;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 459);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Log Sent and Activety:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 227);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Log Received:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(611, 205);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(126, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Stop RMQ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 619);
-            this.Controls.Add(this.panelSimulation);
+            this.ClientSize = new System.Drawing.Size(768, 638);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSimulatePktLoss);
             this.Controls.Add(this.buttonSendFile);
             this.Controls.Add(this.buttonOpenFile);
@@ -180,7 +206,9 @@
         private System.Windows.Forms.Button buttonOpenFile;
         private System.Windows.Forms.Button buttonSendFile;
         private System.Windows.Forms.Button buttonSimulatePktLoss;
-        private System.Windows.Forms.Panel panelSimulation;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -11,6 +11,7 @@ using Communication.Utility;
 using Communication.Send;
 using Communication.Recieve;
 using RabbitMQ.Client;
+using Communication.ServiceControll;
 
 
 namespace Communication
@@ -22,7 +23,7 @@ namespace Communication
         private BackgroundWorker bw;
         private static Boolean fileOK = false;
         private Producer producer;
-       
+        private ServiceHandler handler;
 
 
         public mainForm()
@@ -203,7 +204,18 @@ namespace Communication
            
         }
 
-       
-        
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bool status;
+            handler = new ServiceHandler("Maaster");
+            status = handler.stopService("RabbitMQ");
+            string rv = " " + status;
+            Helper.followTextBoxLog(richTextBoxLogs, "Try stop RMQ", rv);
+        }
     }
 }
