@@ -29,6 +29,9 @@ namespace Communication.Send
         private string queue = "oil_5";
         private static IConnection instance;
 
+        /// <summary>
+        /// Constructor (18.01.2018)
+        /// </summary>
         public Producer()
         {
             //connection status in only true if try getRabbitMqConnction has no exceptions
