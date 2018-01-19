@@ -215,9 +215,9 @@ namespace Communication
         private void button1_Click(object sender, EventArgs e)
         {
             string status;
-            handler = new ServiceHandler("Maaster");
-            status = handler.stopService("RabbitMQ");
-            string rv = " " + status + " background woker";
+            handler = new ServiceHandler("Maaster", "RabbitMQ");
+            backgroundWorker.RunWorkerAsync(handler);
+            string rv = "background woker";
             Helper.followTextBoxLog(richTextBoxLogs, "Try stop RMQ", rv);
         }
 
@@ -228,7 +228,30 @@ namespace Communication
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            https://msdn.microsoft.com/es-es/library/cc221403(v=vs.95).aspx
+            string rv = "";
+            //https://msdn.microsoft.com/es-es/library/cc221403(v=vs.95).aspx
+            //https://www.dotnetperls.com/backgroundworker
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            for (int i = 1; (i <= 10); i++)
+            {
+                rv = "Progress " + i;
+                logger.Debug(rv);
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    // Perform a time consuming operation and report progress.
+                    System.Threading.Thread.Sleep(500);
+                    worker.ReportProgress((i * 10));
+                    rv += " progress " + i;
+                    logger.Debug(rv);
+                }
+            }
+           
         }
     }
 }

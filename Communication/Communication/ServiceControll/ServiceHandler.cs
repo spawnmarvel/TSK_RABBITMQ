@@ -12,10 +12,11 @@ namespace Communication.ServiceControll
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(ServiceHandler));
         private string name;
 
-        public ServiceHandler(string name)
+        public ServiceHandler(string name, string service_name)
         {
 
             this.name = name;
+            stopService(service_name);
         }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace Communication.ServiceControll
         /// </summary>
         /// <param name="serviceName"></param>
         /// <returns></returns>
-        public string stopService(string serviceName)
+        public void stopService(string serviceName)
         {
             bool status = false;
             string result = "Empty";
@@ -47,7 +48,7 @@ namespace Communication.ServiceControll
                 logger.Debug(msg);
                 result = " " + msg;
             }
-            return result;
+            //return result;
         }
 
     }
