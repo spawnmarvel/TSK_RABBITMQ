@@ -225,5 +225,10 @@ namespace Communication
         {
 
         }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            https://msdn.microsoft.com/es-es/library/cc221403(v=vs.95).aspx
+        }
     }
 }
