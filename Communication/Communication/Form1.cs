@@ -211,10 +211,10 @@ namespace Communication
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool status;
+            string status;
             handler = new ServiceHandler("Maaster");
             status = handler.stopService("RabbitMQ");
-            string rv = " " + status;
+            string rv = " " + status + " background woker";
             Helper.followTextBoxLog(richTextBoxLogs, "Try stop RMQ", rv);
         }
     }

@@ -23,25 +23,31 @@ namespace Communication.ServiceControll
         /// </summary>
         /// <param name="serviceName"></param>
         /// <returns></returns>
-        public bool stopService(string serviceName)
+        public string stopService(string serviceName)
         {
             bool status = false;
+            string result = "Empty";
             try
             {
-               
+                TimeSpan timeout = TimeSpan.FromMilliseconds(15000);
+                   
+                //http://www.csharp-examples.net/restart-windows-service/
                 ServiceController service = new ServiceController(serviceName);
                 if (service.Status.Equals(ServiceControllerStatus.Running))
                 {
                     // stop the service
                     service.Stop();
+                    service.WaitForStatus(ServiceControllerStatus.Stopped);
                     status = true;
+                    result = "stopped";
                 }
             }
             catch(Exception msg)
             {
                 logger.Debug(msg);
+                result = " " + msg;
             }
-            return status;
+            return result;
         }
 
     }
