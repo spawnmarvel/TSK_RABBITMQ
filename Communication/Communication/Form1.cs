@@ -231,6 +231,7 @@ namespace Communication
             string rv = "";
             //https://msdn.microsoft.com/es-es/library/cc221403(v=vs.95).aspx
             //https://www.dotnetperls.com/backgroundworker
+            //https://stackoverflow.com/questions/32137177/which-button-was-clicked-using-background-worker
             BackgroundWorker worker = sender as BackgroundWorker;
 
             for (int i = 1; (i <= 10); i++)
