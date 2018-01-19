@@ -56,7 +56,9 @@ namespace Communication
                     if (state == work)
                     {
                         Helper.followTextBoxLog(richTextBoxLogs, "Send", "State is work " + state);
+                       
                         string msg = textBoxSend.Text;
+                        progressBar.Value = 50;
                         if (msg.Length < 2)
                         {
                             Helper.followTextBoxLog(richTextBoxLogs, "Send", "Enter a new messages where char is > 2");
@@ -118,6 +120,7 @@ namespace Communication
             string fromConsumer = cons.recieveAllMsg();
 
             Helper.followTextBoxLog(richTextBoxRecieve, "RecAll", fromConsumer);
+            progressBar.Value = 0;
 
         }
 
@@ -216,6 +219,11 @@ namespace Communication
             status = handler.stopService("RabbitMQ");
             string rv = " " + status + " background woker";
             Helper.followTextBoxLog(richTextBoxLogs, "Try stop RMQ", rv);
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
